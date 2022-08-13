@@ -22,6 +22,7 @@ BOARD_ROWS = 3
 BOARD_COLS = 3
 
 player = 1
+#
 # Screen
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('TicTacToe with AI')
@@ -94,7 +95,7 @@ def confirm_win_d_a(player):
 def confirm_win_d_d(player):
     pygame.draw.line(screen, WHITE, (15, HEIGHT - 15), (WIDTH - 15, 15), 15)
 
-draw_lines()
+    draw_lines()
 # Main Game Loop
 while True:
     for event in pygame.event.get():
