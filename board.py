@@ -1,3 +1,4 @@
+from tabnanny import check
 import pygame, sys, math
 import numpy as np
 
@@ -19,6 +20,7 @@ WHITE = ('#F0FFF0')
 BOARD_ROWS = 3
 BOARD_COLS = 3
 
+player = 1
 # Screen
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('TicTacToe with AI')
@@ -57,7 +59,39 @@ def draw_figures():
                 pygame.draw.line(screen, WHITE, (col * 333 + SPACE, row * 333 + 333 - SPACE), (col * 333 + 333 - SPACE, row * 333 + SPACE), CROSS_WIDTH)
                 pygame.draw.line(screen, WHITE, (col * 333 + SPACE, row * 333 + SPACE), (col * 333 + 333 - SPACE, row * 333 + 333 - SPACE), CROSS_WIDTH)
 
-player = 1
+
+def win_condition(player):
+    #Vertical Win?
+    for col in range(BOARD_COLS):
+        if board[0][col] == player and board[1][col] == player and board[2][col] == player:
+            confirm_win_v(col, player)
+            return True
+    #Horizontal Win?
+    for row in range(BOARD_ROWS):
+        if board[row][0] == player and board[row][1] == player and board[row][2] == player:
+            confirm_win_h(row, player)
+            return True
+    #Diagonal Descending Win?
+    if board[2][0] == player and board[1][1] == player and board[0][2] == player:
+        confirm_win_d_d(player)
+    #Diagonal Ascending Win?
+    if board[0][0] == player and board[1][1] == player and board[2][2] == player:
+        confirm_win_d_a(player)
+
+#Vertical
+def confirm_win_v(col, player):
+    posX = col * 333 + 166
+    pygame.draw.line(screen, WHITE, (posX, HEIGHT - 15), 15)
+#Horizontal
+def confirm_win_h(row, player):
+    posY = row * 333 + 166
+    pygame.draw.line(screen, WHITE, (15, posY), (WIDTH - 15), 15)
+#Diagonal Ascending
+def confirm_win_d_a(player):
+    pygame.draw.line(screen, WHITE, (15, HEIGHT - 15), (WIDTH - 15), 15)
+#Diagonal Descending
+def confirm_win_d_d(player):
+    pygame.draw.line(screen, WHITE, (15, HEIGHT - 15), (WIDTH - 15, 15), 15)
 
 draw_lines()
 # Main Game Loop
@@ -72,6 +106,7 @@ while True:
             clicked_col = math.floor(int(clickX/333))
             if is_square_open(clicked_row,clicked_col):
                 mark_move(clicked_row,clicked_col, player)
+                win_condition(player)
                 if player == 1:
                     player = 2
                 else:
