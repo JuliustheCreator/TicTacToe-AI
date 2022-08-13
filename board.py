@@ -15,7 +15,8 @@ SPACE = 90
 
 DARK_GRAY = ('#242222')
 GRAY = ('#36393f')
-WHITE = ('#F0FFF0')
+HONEYDEW = ('#F0FFF0')
+WHITE = ("#FFFFFF")
 
 BOARD_ROWS = 3
 BOARD_COLS = 3
@@ -54,10 +55,10 @@ def draw_figures():
     for row in range(BOARD_ROWS):
         for col in range(BOARD_COLS):
             if board[row][col] == 2:
-                pygame.draw.circle(screen, WHITE, (int(col * 333 + 166), int(row * 333 + 166)), CIRCLE_RADIUS, CIRCLE_WIDTH)
+                pygame.draw.circle(screen,HONEYDEW, (int(col * 333 + 166), int(row * 333 + 166)), CIRCLE_RADIUS, CIRCLE_WIDTH)
             elif board[row][col] == 1:
-                pygame.draw.line(screen, WHITE, (col * 333 + SPACE, row * 333 + 333 - SPACE), (col * 333 + 333 - SPACE, row * 333 + SPACE), CROSS_WIDTH)
-                pygame.draw.line(screen, WHITE, (col * 333 + SPACE, row * 333 + SPACE), (col * 333 + 333 - SPACE, row * 333 + 333 - SPACE), CROSS_WIDTH)
+                pygame.draw.line(screen,HONEYDEW, (col * 333 + SPACE, row * 333 + 333 - SPACE), (col * 333 + 333 - SPACE, row * 333 + SPACE), CROSS_WIDTH)
+                pygame.draw.line(screen,HONEYDEW, (col * 333 + SPACE, row * 333 + SPACE), (col * 333 + 333 - SPACE, row * 333 + 333 - SPACE), CROSS_WIDTH)
 
 
 def win_condition(player):
@@ -81,14 +82,14 @@ def win_condition(player):
 #Vertical
 def confirm_win_v(col, player):
     posX = col * 333 + 166
-    pygame.draw.line(screen, WHITE, (posX, HEIGHT - 15), 15)
+    pygame.draw.line(screen, WHITE, (posX, 15), (posX, HEIGHT - 15), 15)
 #Horizontal
 def confirm_win_h(row, player):
     posY = row * 333 + 166
-    pygame.draw.line(screen, WHITE, (15, posY), (WIDTH - 15), 15)
+    pygame.draw.line(screen, WHITE, (15, posY), (WIDTH - 15, posY), 15)
 #Diagonal Ascending
 def confirm_win_d_a(player):
-    pygame.draw.line(screen, WHITE, (15, HEIGHT - 15), (WIDTH - 15), 15)
+    pygame.draw.line(screen, WHITE, (15, 15), (WIDTH - 15, HEIGHT - 15), 15)
 #Diagonal Descending
 def confirm_win_d_d(player):
     pygame.draw.line(screen, WHITE, (15, HEIGHT - 15), (WIDTH - 15, 15), 15)
